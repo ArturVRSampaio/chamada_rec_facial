@@ -13,12 +13,23 @@ sudo apt-get upgrade;
 #python3
 sudo apt install python3-pip
 
+#--------
 cd ~
-#face_recognition install
+#dlib
+git clone https://github.com/davisking/dlib.git
 
+cd dlib
+mkdir build; cd build; cmake ..; cmake --build .
+
+cd ..
+python3 setup.py install
+
+#------
+cd~
+#face_recognition install
 sudo apt-get update
 
 sudo pip3 install face_recognition
 
+#-----
 cd ~
-
