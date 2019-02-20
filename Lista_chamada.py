@@ -13,12 +13,20 @@ video_capture = cv2.VideoCapture(0)
 arturV = face_recognition.load_image_file("artur.jpg")
 arturV_face_encoding = face_recognition.face_encodings(arturV)[0]
 
+# Load a sample picture and learn how to recognize it.
+arturJ = face_recognition.load_image_file("arturj.jpg")
+arturJ_face_encoding = face_recognition.face_encodings(arturJ)[0]
+
 # Create arrays of known face encodings and their names
 known_face_encodings = [
-    arturV_face_encoding
+    arturV_face_encoding,
+    arturJ_face_encoding
+    
     ]
+
 known_face_names = [
-    "Artur V"
+    "Artur V",
+    "Artur J"
     ]
 
 # Initialize some variables
@@ -43,9 +51,11 @@ def pesquisaChamada(name):
     for linha in texto:
         if (linha == name):
             result = True
+            arq.close
             break    
         else:
             result= False
+    arq.close
     return result
 
 while end == False:
@@ -84,10 +94,11 @@ while end == False:
                     lista = open(nomeLista, 'a')
                     lista.write(name + "\n")
                     lista.close
-                    face_names.append(name+ "[X]")    
+                    face_names.append(name + "[X]")    
                 #else show the [V] after the name
                 else:
-                    face_names.append(name+ "[V]")    
+                    face_names.append(name + "[V]")    
+    
 
     # Display the results
     for (top, right, bottom, left), name in zip(face_locations, face_names):
@@ -111,4 +122,3 @@ while end == False:
 # Release handle to the webcam
 video_capture.release()
 cv2.destroyAllWindows()
-
