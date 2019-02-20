@@ -33,7 +33,7 @@ nomeLista= 'lista_chamada_'+ datastr + '.txt'
 lista = open(nomeLista,'w') 
 
 
-#check if the name had been alread saved on the txt
+#check if the name had alread been saved on the txt
 #def pesquisaChamada(name): #ainda em construcao
 #    found = True
 #    with open(nomeLista) as 
