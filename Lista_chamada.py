@@ -10,15 +10,15 @@ import cv2
 video_capture = cv2.VideoCapture(0)
 
 # Load a sample picture and learn how to recognize it.
-Artur = face_recognition.load_image_file("artur.jpg")
-artur_face_encoding = face_recognition.face_encodings(Artur)[0]
+arturV = face_recognition.load_image_file("artur.jpg")
+arturV_face_encoding = face_recognition.face_encodings(arturV)[0]
 
 # Create arrays of known face encodings and their names
 known_face_encodings = [
-    artur_face_encoding
+    arturV_face_encoding
     ]
 known_face_names = [
-    "Artur"
+    "Artur V"
     ]
 
 # Initialize some variables
@@ -34,8 +34,10 @@ nomeLista= 'lista_chamada_'+ datastr + '.txt'
 lista = open(nomeLista,'w') 
 lista.close
 
+end = False
+
 #check if the name had alread been saved on the txt
-def pesquisaChamada(name): #ainda em construcao
+def pesquisaChamada(name):
     arq = open(nomeLista, 'r')
     texto = arq.read().split("\n")
     for linha in texto:
@@ -46,7 +48,12 @@ def pesquisaChamada(name): #ainda em construcao
             result= False
     return result
 
-while True:
+while end == False:
+
+    # Hit 'q' on the keyboard to quit!
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        end =True
+
     # Grab a single frame of video
     ret, frame = video_capture.read()
 
@@ -66,20 +73,21 @@ while True:
         for face_encoding in face_encodings:
             # See if the face is a match for the known face(s)
             matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
-            name = "Unknown"
+            name = "Unknown [X]"
 
             # If a match was found in known_face_encodings, just use the first one.
             if True in matches:
                 first_match_index = matches.index(True)
                 name = known_face_names[first_match_index]
-                face_names.append(name)    
+                # if name is new in the list save
                 if (pesquisaChamada(name)!=True):
                     lista = open(nomeLista, 'a')
                     lista.write(name + "\n")
                     lista.close
-
-    process_this_frame = not process_this_frame
-
+                    face_names.append(name+ "[X]")    
+                #else show the [V] after the name
+                else:
+                    face_names.append(name+ "[V]")    
 
     # Display the results
     for (top, right, bottom, left), name in zip(face_locations, face_names):
@@ -99,10 +107,6 @@ while True:
 
     # Display the resulting image
     cv2.imshow('Video', frame)
-
-    # Hit 'q' on the keyboard to quit!
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
 
 # Release handle to the webcam
 video_capture.release()
