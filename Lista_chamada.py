@@ -30,15 +30,21 @@ process_this_frame = True
 data =date.today()
 datastr = data.strftime('%d|%m|%Y')
 nomeLista= 'lista_chamada_'+ datastr + '.txt'
-lista = open(nomeLista,'w') 
 
+lista = open(nomeLista,'w') 
+lista.close
 
 #check if the name had alread been saved on the txt
-#def pesquisaChamada(name): #ainda em construcao
-#    found = True
-#    with open(nomeLista) as 
-#    return found
-
+def pesquisaChamada(name): #ainda em construcao
+    arq = open(nomeLista, 'r')
+    texto = arq.read().split("\n")
+    for linha in texto:
+        if (linha == name):
+            result = True
+            break    
+        else:
+            result= False
+    return result
 
 while True:
     # Grab a single frame of video
@@ -67,9 +73,11 @@ while True:
                 first_match_index = matches.index(True)
                 name = known_face_names[first_match_index]
                 face_names.append(name)    
-#ainda em                if (pesquisaChamada(name)==False):
-#construcao                    lista.write(name + "\n")
-            
+                if (pesquisaChamada(name)!=True):
+                    lista = open(nomeLista, 'a')
+                    lista.write(name + "\n")
+                    lista.close
+
     process_this_frame = not process_this_frame
 
 
