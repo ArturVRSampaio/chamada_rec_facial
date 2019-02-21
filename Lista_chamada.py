@@ -87,10 +87,12 @@ while end == False:
 
             # If a match was found in known_face_encodings, just use the first one.
             if True in matches:
+                #print("found")
                 first_match_index = matches.index(True)
                 name = known_face_names[first_match_index]
                 # if name is new in the list save
                 if (pesquisaChamada(name)!=True):
+                    print("escrito")
                     lista = open(nomeLista, 'a')
                     lista.write(name + "\n")
                     lista.close
@@ -98,7 +100,7 @@ while end == False:
                 #else show the [V] after the name
                 else:
                     face_names.append(name + "[V]")    
-    
+            process_this_frame = not process_this_frame
 
     # Display the results
     for (top, right, bottom, left), name in zip(face_locations, face_names):
