@@ -19,23 +19,18 @@ arturJ_face_encoding = face_recognition.face_encodings(arturJ)[0]
 
 # Create arrays of known face encodings and their names
 
-#with open('alunos.txt') as alutxt: #em consreução
-#    listaAlunos = [alutxt.read()]
-#    for linha in listaAlunos:
-#        known_face_names = [linha]
-
-
 
 known_face_encodings = [
     arturV_face_encoding,
     arturJ_face_encoding
-    
     ]
 
-known_face_names = [
-    "Artur V",
-    "Artur J"
-    ]
+
+known_face_names = []
+with open('alunos.txt', 'r') as my_file:
+    for line in my_file:
+        known_face_names.append(line)
+        print(line)
 
 # Initialize some variables
 face_locations = []
@@ -66,6 +61,7 @@ def pesquisaChamada(name):
     arq.close
     return result
 
+#write name on the txt
 def assinaLista(name):
     #print("escrito")
     lista = open(nomeLista, 'a')
