@@ -20,17 +20,19 @@ arturJ_face_encoding = face_recognition.face_encodings(arturJ)[0]
 # Create arrays of known face encodings and their names
 
 
+
 known_face_encodings = [
     arturV_face_encoding,
     arturJ_face_encoding
     ]
 
-
 known_face_names = []
 with open('alunos.txt', 'r') as my_file:
-    for line in my_file:
+    filerows =my_file.read().split("\n")
+    for line in filerows:
         known_face_names.append(line)
-        print(line)
+        #print(line)
+
 
 # Initialize some variables
 face_locations = []
