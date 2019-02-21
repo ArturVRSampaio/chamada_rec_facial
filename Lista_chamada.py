@@ -18,6 +18,14 @@ arturJ = face_recognition.load_image_file("arturj.jpg")
 arturJ_face_encoding = face_recognition.face_encodings(arturJ)[0]
 
 # Create arrays of known face encodings and their names
+
+#with open('alunos.txt') as alutxt: #em consreução
+#    listaAlunos = [alutxt.read()]
+#    for linha in listaAlunos:
+#        known_face_names = [linha]
+
+
+
 known_face_encodings = [
     arturV_face_encoding,
     arturJ_face_encoding
@@ -58,6 +66,12 @@ def pesquisaChamada(name):
     arq.close
     return result
 
+def assinaLista(name):
+    #print("escrito")
+    lista = open(nomeLista, 'a')
+    lista.write(name + "\n")
+    lista.close
+                
 while end == False:
 
     # Hit 'q' on the keyboard to quit!
@@ -87,21 +101,17 @@ while end == False:
 
             # If a match was found in known_face_encodings, just use the first one.
             if True in matches:
-                #print("found")
+                #print("mach")
                 first_match_index = matches.index(True)
                 name = known_face_names[first_match_index]
                 # if name is new in the list save
                 if (pesquisaChamada(name)!=True):
-                    print("escrito")
-                    lista = open(nomeLista, 'a')
-                    lista.write(name + "\n")
-                    lista.close
                     face_names.append(name + "[X]")    
+                    assinaLista(name)
                 #else show the [V] after the name
                 else:
                     face_names.append(name + "[V]")    
-            process_this_frame = not process_this_frame
-
+                
     # Display the results
     for (top, right, bottom, left), name in zip(face_locations, face_names):
         # Scale back up face locations since the frame we detected in was scaled to 1/4 size
