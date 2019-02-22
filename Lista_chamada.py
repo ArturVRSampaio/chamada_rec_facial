@@ -96,19 +96,20 @@ while True:
             # See if the face is a match for the known face(s)
             matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
             name = "Unknown [X]"
-
+            fname = name
             # If a match was found in known_face_encodings, just use the first one.
             if True in matches:
                 #print("mach")
                 first_match_index = matches.index(True)
                 name = known_face_names[first_match_index]
+                fname = name
                 # if name is new in the list save
                 if (pesquisaChamada(name)!=True):
-                    face_names.append(name + "[X]")    
+                    fname += "[X]"    
                     assinaLista(name)
                 #else show the [V] after the name
-                    face_names.append(name+ "[V]")    
-            face_names.append(name)    
+                    fname += "[V]"    
+            face_names.append(fname)    
                 
     # Display the results
     for (top, right, bottom, left), name in zip(face_locations, face_names):
