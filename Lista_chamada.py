@@ -107,9 +107,8 @@ while True:
                     face_names.append(name + "[X]")    
                     assinaLista(name)
                 #else show the [V] after the name
-                else:
-                    face_names.append(name + "[V]")    
-            face_names.append(name + "[X]")    
+                    face_names.append(name+ "[V]")    
+            face_names.append(name)    
                 
     # Display the results
     for (top, right, bottom, left), name in zip(face_locations, face_names):
