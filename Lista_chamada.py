@@ -1,5 +1,6 @@
 from datetime import date
 import face_recognition
+import os
 import cv2
 
 
@@ -11,23 +12,15 @@ video_capture = cv2.VideoCapture(0)
 
 train_dir = "imagens/"
 
-############################TREINO#####################
-# Load a sample picture and learn how to recognize it.
-arturV = face_recognition.load_image_file(train_dir + "artur.jpg")
-arturV_face_encoding = face_recognition.face_encodings(arturV)[0]
-
-# Load a sample picture and learn how to recognize it.
-arturJ = face_recognition.load_image_file(train_dir+"arturj.jpg")
-arturJ_face_encoding = face_recognition.face_encodings(arturJ)[0]
-
-# Create arrays of known face encodings and their names
-
-
-#################array de treinos##############
-known_face_encodings = [
-    arturV_face_encoding,
-    arturJ_face_encoding
-    ]
+known_face_encodings = []
+# Loop through images in folder
+for filename in os.listdir (train_dir):
+    #take the image inside the filename in train_dir
+    rosto = face_recognition.load_image_file(train_dir + filename)
+    #encode that face
+    rostoTreinado = face_recognition.face_encodings(rosto)[0]
+    #push it in the list
+    known_face_encodings.insert(len(known_face_encodings),rostoTreinado)
 
 known_face_names = []
 with open('alunos.txt', 'r') as my_file:
