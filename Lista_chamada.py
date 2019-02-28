@@ -9,12 +9,14 @@ import cv2
 # Get a reference to webcam #0 (the default one)
 video_capture = cv2.VideoCapture(0)
 
+train_dir = "imagens/"
+
 # Load a sample picture and learn how to recognize it.
-arturV = face_recognition.load_image_file("artur.jpg")
+arturV = face_recognition.load_image_file(train_dir + "artur.jpg")
 arturV_face_encoding = face_recognition.face_encodings(arturV)[0]
 
 # Load a sample picture and learn how to recognize it.
-arturJ = face_recognition.load_image_file("arturj.jpg")
+arturJ = face_recognition.load_image_file(train_dir+"arturj.jpg")
 arturJ_face_encoding = face_recognition.face_encodings(arturJ)[0]
 
 # Create arrays of known face encodings and their names
