@@ -2,7 +2,7 @@
 um sistema para subistituir a chamda em uma sala de aula usando reconhecimento facial com face_recognition
 
 para instalar (no ubuntu) basta executar o install.sh, em caso de erros de instalação
-ou durante a execução favor abrir um inssune
+ou durante a execução favor abrir um inssue
 --este foi meu primeiro shell script então ele tem muito a ser otimizado ainda--
 
 =D
